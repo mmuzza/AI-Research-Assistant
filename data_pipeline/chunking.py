@@ -1,6 +1,6 @@
 import tiktoken
 from typing import List
-from pdf_parser import PDFParser
+# from pdf_parser import PDFParser
 
 class TextChunker:
     def __init__(self, chunk_size: int = 500, overlap: int = 50):
