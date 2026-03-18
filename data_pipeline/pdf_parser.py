@@ -2,14 +2,30 @@
 
 
 from pypdf import PdfReader
+import re
 
 class PDFParser:
 
     def __init__(self):
         pass
 
+    @staticmethod
+    def clean_text(pdf_text: str) -> str:
+        """
+        Cleans raw PDF text for chunking and embeddings:
+        """
+
+        text = re.sub(r"(\w+)-\n(\w+)", r"\1\2", pdf_text)
+
+        text = re.sub(r"(?<!\n)\n(?!\n)", " ", text)
+
+        text = re.sub(r"\s+", " ", text)
+
+        text = text.strip()
+
+        return text
     
-    def extract_all_text(self, pdf_path: str) -> str:
+    def extract_text(self, pdf_path: str) -> str:
         
         pdf_text = ""
 
@@ -22,7 +38,8 @@ class PDFParser:
 
         pdf_text = "\n".join((page.extract_text() or "").strip() for page in reader.pages)
 
-        return pdf_text
+        return self.clean_text(pdf_text)
+        # return pdf_text
 
 
 if __name__ == "__main__":
@@ -30,7 +47,5 @@ if __name__ == "__main__":
 
     parser = PDFParser()
 
-    test_text = parser.extract_all_text("data/pdfs/2603.13098v1.pdf")
+    test_text = parser.extract_text("data/pdfs/2603.13098v1.pdf")
     print(test_text[:500])
-
-

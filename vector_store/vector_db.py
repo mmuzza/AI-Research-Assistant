@@ -11,6 +11,7 @@ class VectorDB:
         self.metadata = []
         self.id_counter = 0 
 
+
     def add_embeddings(self, embeddings, metadata_list):
 
         embeddings = np.array(embeddings).astype("float32")
@@ -23,6 +24,7 @@ class VectorDB:
         self.index.add_with_ids(embeddings, ids)
         self.metadata.extend(metadata_list)
         self.id_counter += num_embeddings
+
 
     def search(self, query_embedding, k: int = 5):
 
@@ -37,7 +39,7 @@ class VectorDB:
             if idx == -1: 
                 continue
             results.append({
-                "metadata": self.metadata[idx],
+                "chunk": self.metadata[idx],
                 "distance": float(distances[0][rank])
             })
         return results
