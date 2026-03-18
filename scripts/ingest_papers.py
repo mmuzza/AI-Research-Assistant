@@ -61,6 +61,11 @@ class IngestPapers:
                         "published": paper["published"],
                         "pdf_url": paper["pdf_url"],
                         "summary": paper["summary"],
+<<<<<<< HEAD
+=======
+                        "chunk_text": chunk
+                    })
+>>>>>>> 0abfef4 (retrieval agent completed)
                 
             except Exception as e:
                 continue
@@ -95,7 +100,8 @@ class IngestPapers:
 
 if __name__ == "__main__":
 
-    ingestor = IngestPapers()
+    vector_db = VectorDB()
+    ingestor = IngestPapers(vector_db)
 
 
     # ingestor.ingest("transformers")
