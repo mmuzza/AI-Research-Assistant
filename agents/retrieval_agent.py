@@ -64,7 +64,7 @@ class RetrievalAgent:
                 "authors": chunk_meta.get("authors"),
                 "published": chunk_meta.get("published"),
                 "pdf_url": chunk_meta.get("pdf_url"),
-                "summary": chunk_meta.get("summary")  # <-- add this line
+                "summary": chunk_meta.get("summary")
             })
 
         return formatted_results

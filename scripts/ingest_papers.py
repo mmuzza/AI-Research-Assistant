@@ -59,13 +59,10 @@ class IngestPapers:
                         "title": paper["title"],
                         "authors": paper["authors"],
                         "published": paper["published"],
+                        "chunk_text": chunk,
                         "pdf_url": paper["pdf_url"],
                         "summary": paper["summary"],
-<<<<<<< HEAD
-=======
-                        "chunk_text": chunk
                     })
->>>>>>> 0abfef4 (retrieval agent completed)
                 
             except Exception as e:
                 continue
