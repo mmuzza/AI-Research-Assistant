@@ -15,7 +15,7 @@ class EmbeddingModel:
         embeddings = None
         embeddings = self.model.encode(chunks)
 
-        return embeddings
+        return embeddings.astype("float32")
 
 
 

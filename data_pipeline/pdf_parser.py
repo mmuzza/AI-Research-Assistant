@@ -49,3 +49,4 @@ if __name__ == "__main__":
 
     test_text = parser.extract_text("data/pdfs/2603.13098v1.pdf")
     print(test_text[:500])
+    print(test_text[:500])

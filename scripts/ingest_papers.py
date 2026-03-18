@@ -5,7 +5,11 @@ from data_pipeline.arxiv_client import ArxivClient
 from data_pipeline.pdf_parser import PDFParser
 from data_pipeline.chunking import TextChunker
 from embeddings.embedding_model import EmbeddingModel
+<<<<<<< HEAD
 from vector_store.vector_db import VectorDB
+=======
+from vector_score.vector_db import VectorDB
+>>>>>>> 59145c8 (Resolving bug in ingest_papers.py)
 
 from typing import List
 
@@ -13,14 +17,22 @@ from typing import List
 
 class IngestPapers:
 
+<<<<<<< HEAD
     def __init__(self, vector_db: VectorDB):
+=======
+    def __init__(self):
+>>>>>>> 59145c8 (Resolving bug in ingest_papers.py)
 
         self.arxiv_client = ArxivClient(max_results = 5)
         self.pdf_downloader = PDFDownloader()
         self.pdf_parser = PDFParser()
         self.chunking = TextChunker()
         self.embedding_model = EmbeddingModel()
+<<<<<<< HEAD
         self.vector_db = vector_db
+=======
+        self.vector_db =  VectorDB()
+>>>>>>> 59145c8 (Resolving bug in ingest_papers.py)
 
 
     
@@ -61,8 +73,6 @@ class IngestPapers:
                         "published": paper["published"],
                         "pdf_url": paper["pdf_url"],
                         "summary": paper["summary"],
-                        "chunk_text": chunk
-                    })
                 
             except Exception as e:
                 continue
@@ -97,8 +107,7 @@ class IngestPapers:
 
 if __name__ == "__main__":
 
-    vector_db = VectorDB()
-    ingestor = IngestPapers(vector_db)
+    ingestor = IngestPapers()
 
 
     # ingestor.ingest("transformers")
