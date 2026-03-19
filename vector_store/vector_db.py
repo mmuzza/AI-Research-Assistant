@@ -1,8 +1,18 @@
 import faiss
 import numpy as np
+from faiss import IndexFlatL2
 
 class VectorDB:
-    def __init__(self, embedding_dim=384, use_cosine: bool = True):
+    # def __init__(self, embedding_dim=384, use_cosine: bool = True):
+ 
+    #     self.embedding_dim = embedding_dim
+    #     self.use_cosine = use_cosine
+
+    #     self.index = faiss.IndexIDMap(faiss.IndexFlatL2(embedding_dim))
+    #     self.metadata = []
+    #     self.id_counter = 0 
+
+    def __init__(self, embedding_dim=1024, use_cosine: bool = True):
  
         self.embedding_dim = embedding_dim
         self.use_cosine = use_cosine

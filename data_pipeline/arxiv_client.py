@@ -12,13 +12,14 @@ class ArxivClient:
         self.client = arxiv.Client()
 
     
-    def search_papers(self, query : str) -> List[Dict]:
+    def search_papers(self, query : str, max_results=None) -> List[Dict]:
 
+        max_results = max_results or self.max_results
         papers = []
 
         search = arxiv.Search(
             query=query,
-            max_results=self.max_results,
+            max_results= max_results,
             sort_by=arxiv.SortCriterion.SubmittedDate
         )
 

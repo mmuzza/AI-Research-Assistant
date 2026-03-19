@@ -15,97 +15,30 @@
 # generate answer
 # '''
 
-# class RAGPipeline:
+class RAGPipeline:
 
-#     def __init__(self, vector_db, embedding_model, llm):
-#         self.vector_db = vector_db
-#         self.embedding_model = embedding_model
-#         self.llm = llm
-
-#     def query(self, question: str, k: int = 5):
-
-#         query_embedding = self.embedding_model.embed_texts([question])[0]
-
-
-#         results = self.vector_db.search(query_embedding, k=k)
-
-#         if not results:
-#             return "No relevant papers found."
-
-#         context_text = "\n\n".join([r["chunk"]["chunk_text"] for r in results])
-#         prompt = f"Answer this question using the context below:\n{context_text}\n\nQuestion: {question}"
-
-#         answer = self.llm.generate(prompt)
-
-#         return answer
-
-
-
-from typing import List, Dict
-from embeddings.embedding_model import EmbeddingModel
-from vector_score.vector_db import VectorDB
-from scripts.ingest_papers import IngestPapers
-
-
-class RetrievalAgent:
-    def __init__(
-        self,
-        vector_db: VectorDB,
-        embedding_model: EmbeddingModel,
-        ingestor: IngestPapers = None, 
-        min_results: int = 3
-    ):
+    def __init__(self, vector_db, embedding_model, llm):
         self.vector_db = vector_db
         self.embedding_model = embedding_model
-        self.ingestor = ingestor
-        self.min_results = min_results
+        self.llm = llm
 
-    def retrieve(self, query: str, k: int = 5) -> Dict:
-        """
-        1. Embed query
-        2. Search vector DB
-        3. If not enough results -> dynamically ingest
-        4. Return structured JSON
-        """
+    def query(self, question: str, k: int = 5):
 
-        # 1. Embed query
-        query_embedding = self.embedding_model.embed_texts([query])[0]
+        query_embedding = self.embedding_model.embed_texts([question])[0]
 
-        # 2. Search
-        results = self.vector_db.search(query_embedding, k)
 
-        # 3. Dynamic ingestion
-        if len(results) < self.min_results and self.ingestor:
-            print("[INFO] Not enough results, performing dynamic ingestion...")
-            self.ingestor.ingest_topics(query)
-            results = self.vector_db.search(query_embedding, k)
+        results = self.vector_db.search(query_embedding, k=k)
 
-        # 4. Gathering result and returning Json for front end
-        formatted_results = []
-        seen_papers = set()
+        if not results:
+            return "No relevant papers found."
 
-        for res in results:
-            meta = res["metadata"]
+        context_text = "\n\n".join([r["chunk"]["chunk_text"] for r in results])
+        prompt = f"Answer this question using the context below:\n{context_text}\n\nQuestion: {question}"
 
-            formatted_results.append({
-                "paper_id": meta.get("paper_id"),
-                "title": meta.get("title"),
-                "chunk_text": meta.get("chunk_text"),
-                "distance": res["distance"],
-                # Optional richer info (if you add during ingestion)
-                "authors": meta.get("authors"),
-                "published": str(meta.get("published")),
-                "pdf_url": meta.get("pdf_url")
-            })
+        answer = self.llm.generate(prompt)
 
-            seen_papers.add(meta.get("paper_id"))
+        return answer
 
-        return {
-            "query": query,
-            "num_results": len(formatted_results),
-            "unique_papers": len(seen_papers),
-            "results": formatted_results
-        }
 
 
 # ------------------ TEST RUN ------------------

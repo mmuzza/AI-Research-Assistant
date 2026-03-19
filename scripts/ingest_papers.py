@@ -27,7 +27,7 @@ class IngestPapers:
     def ingest(self, query : str):
 
         # 1. Get all papers
-        papers = self.arxiv_client.search_papers(query)
+        papers = self.arxiv_client.search_papers(query, max_results=5)
 
         all_chunks = []
         all_metadata = []

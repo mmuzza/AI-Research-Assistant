@@ -7,7 +7,8 @@ from data_pipeline.chunking import TextChunker
 
 class EmbeddingModel:
 
-    def __init__(self, model_name : str = "all-MiniLM-L6-v2"):
+    # def __init__(self, model_name : str = "all-MiniLM-L6-v2"):
+    def __init__(self, model_name : str = "intfloat/e5-large"):
         self.model = SentenceTransformer(model_name)
 
     def embed_texts(self, chunks : List[str]):
