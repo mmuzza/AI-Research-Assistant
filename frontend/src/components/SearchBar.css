@@ -1,0 +1,134 @@
+
+.searchbar-wrapper {
+    margin: 28px 0 0;
+  }
+  
+  .searchbar-form {
+    display: flex;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 6px 6px 6px 16px;
+    gap: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .searchbar-form:focus-within {
+    border-color: var(--border-accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  
+  .searchbar-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchbar-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 400;
+    padding: 8px 0;
+    caret-color: var(--accent);
+  }
+  
+  .searchbar-input::placeholder {
+    color: var(--text-muted);
+  }
+  
+  .searchbar-clear {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+  
+  .searchbar-clear:hover { color: var(--text-primary); }
+  
+  .searchbar-btn {
+    background: var(--accent);
+    color: #0a0e18;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    flex-shrink: 0;
+    min-width: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .searchbar-btn:hover:not(:disabled) {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+  
+  .searchbar-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  .searchbar-btn--loading { opacity: 0.8; }
+  
+  .btn-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #0a0e18;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  
+
+  .searchbar-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .suggestions-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+  
+  .suggestion-chip {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  
+  .suggestion-chip:hover {
+    border-color: var(--border-accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }

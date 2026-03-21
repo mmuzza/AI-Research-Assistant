@@ -4,7 +4,7 @@ from collections import defaultdict
 class SummarizerAgent:
     def __init__(self, llm):
         self.llm = llm
-
+    
     
     # Helper function to sort papers based on their id
     def group_by_paper(self, chunks: List[Dict]) -> Dict[str, List[Dict]]:
@@ -86,17 +86,17 @@ class SummarizerAgent:
 
     # Main pipeline
     def summarize(self, retrieved_chunks: List[Dict]) -> Dict:
-        # Step 1: group
+        # Group
         paper_dict = self.group_by_paper(retrieved_chunks)
 
-        # Step 2: summarize each paper
+        # Summarize each paper
         paper_summaries = []
         for _, chunks in paper_dict.items():
             summary = self.summarize_paper(chunks)
             if summary:
                 paper_summaries.append(summary)
 
-        # Step 3: global summary
+        # Global summary
         global_summary = self.summarize_global(paper_summaries)
 
         return {
@@ -125,10 +125,10 @@ if __name__ == "__main__":
 
     result = summarizer.summarize(chunks)
 
-    print("\n=== GLOBAL SUMMARY ===")
+    print("\n=== Global summary: ===")
     print(result["global_summary"])
 
-    print("\n=== PAPER SUMMARIES ===")
+    print("\n=== Paper summaries: ===")
     for p in result["paper_summaries"]:
         print(f"\n📄 {p['title']}")
         print(p["summary"][:300])

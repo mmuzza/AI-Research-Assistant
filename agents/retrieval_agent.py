@@ -20,7 +20,7 @@ class RetrievalAgent:
     def __init__(self, vector_db: VectorDB, embedding_model: EmbeddingModel):
         self.vector_db = vector_db
         self.embedding_model = embedding_model
-        self.ingestor = IngestPapers(vector_db)
+        self.ingestor = IngestPapers(vector_db, embedding_model)
         self.ingested_topics = set()
         self.reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
     
@@ -79,69 +79,6 @@ class RetrievalAgent:
         return formatted_results
 
 
-    # def retrieve(self, query: str, k: int = 5) -> List[Dict]:
-    #     """
-    #     Retrieve top k relevant chunks for a query from the VectorDB.
-
-    #     Returns List[Dict]
-    #     """
-
-    #     # Searching dynamically
-    #     if query.lower() not in self.ingested_topics:
-    #         print(f"[INFO] Ingesting papers for query topic: '{query}'")
-    #         self.ingestor.ingest(query)
-    #         self.ingested_topics.add(query.lower())
-
-    #     # 1️. Embed the query
-    #     query_embedding = self.embedding_model.embed_texts([query])[0]
-
-    #     # 2️. Search VectorDB
-    #     # search_results = self.vector_db.search(query_embedding, k=k)
-
-    #     search_results = self.vector_db.search(query_embedding, k=10)
-
-    #     if not search_results:
-    #         return []
-
-    #     pairs = [(query, res["chunk"]["chunk_text"]) for res in search_results]
-    #     scores = self.reranker.predict(pairs)
-
-
-
-    #     for i, res in enumerate(search_results):
-    #         res["rerank_score"] = scores[i]
-
-    #     search_results = sorted(search_results, key=lambda x: x["rerank_score"], reverse=True)
-    #     # search_results = search_results[:k]
-
-
-
-
-    #     seen_papers = set()
-    #     formatted_results = []
-
-    #     for res in search_results:
-    #         chunk_meta = res["chunk"]
-
-    #         paper_id = chunk_meta.get("paper_id")
-    #         if paper_id in seen_papers:
-    #             continue
-
-    #         seen_papers.add(paper_id)
-
-    #         formatted_results.append({
-    #             "chunk_text": chunk_meta.get("chunk_text"),
-    #             "paper_id": paper_id,
-    #             "title": chunk_meta.get("title"),
-    #             "distance": res["distance"],
-    #             "authors": chunk_meta.get("authors"),
-    #             "published": chunk_meta.get("published"),
-    #             "pdf_url": chunk_meta.get("pdf_url"),
-    #             "summary": chunk_meta.get("summary")
-    #         })
-
-    #     return formatted_results
-
 
 # testing the file locally
 if __name__ == "__main__":
@@ -154,7 +91,7 @@ if __name__ == "__main__":
     embedding_model = EmbeddingModel()
 
     # Pass the same DB into ingestor
-    ingestor = IngestPapers(vector_db=vector_db)
+    ingestor = IngestPapers(vector_db=vector_db, embedding_model=embedding_model)
     topics = ["transformers", "diffusion models", "reinforcement learning"]
     ingestor.ingest_topics(topics)
 
@@ -165,8 +102,6 @@ if __name__ == "__main__":
     results = agent.retrieve(query, k=3)
 
     for i, r in enumerate(results, 1):
-        # print(f"Result {i}: {r['title']} (Distance: {r['distance']:.4f})")
-        # print(r['chunk_text'][:300], "...\n")
 
         print(f"\n{r['title']}")
         print(f"{r['published']}")

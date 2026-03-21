@@ -41,7 +41,7 @@ class RAGPipeline:
 
 
 
-# ------------------ TEST RUN ------------------
+# Testing below
 
 if __name__ == "__main__":
     from vector_score.vector_db import VectorDB
@@ -55,18 +55,18 @@ if __name__ == "__main__":
     # Ingestor (for dynamic ingestion)
     ingestor = IngestPapers(vector_db)
 
-    # OPTIONAL: pre-ingest some topics
+
     topics = ["transformers", "diffusion models"]
     ingestor.ingest_topics(topics)
 
-    # Create agent
+
     agent = RetrievalAgent(
         vector_db=vector_db,
         embedding_model=embedding_model,
         ingestor=ingestor
     )
 
-    # Query
+
     query = "Recent advances in diffusion models"
     output = agent.retrieve(query, k=5)
 

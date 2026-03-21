@@ -12,15 +12,12 @@ class PDFParser:
     @staticmethod
     def clean_text(pdf_text: str) -> str:
         """
-        Cleans raw PDF text for chunking and embeddings:
+        Cleaning raw PDF text for chunking & embeddings:
         """
 
         text = re.sub(r"(\w+)-\n(\w+)", r"\1\2", pdf_text)
-
         text = re.sub(r"(?<!\n)\n(?!\n)", " ", text)
-
         text = re.sub(r"\s+", " ", text)
-
         text = text.strip()
 
         return text

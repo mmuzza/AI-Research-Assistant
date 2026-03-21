@@ -13,13 +13,13 @@ from typing import List
 
 class IngestPapers:
 
-    def __init__(self, vector_db: VectorDB):
+    def __init__(self, vector_db: VectorDB, embedding_model: EmbeddingModel):
 
         self.arxiv_client = ArxivClient(max_results = 5)
         self.pdf_downloader = PDFDownloader()
         self.pdf_parser = PDFParser()
         self.chunking = TextChunker()
-        self.embedding_model = EmbeddingModel()
+        self.embedding_model = embedding_model
         self.vector_db = vector_db
 
 
