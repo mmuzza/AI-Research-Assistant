@@ -19,7 +19,7 @@ class EmbeddingModel:
         return embeddings.astype("float32")
 
 
-
+# Testing
 if __name__ == "__main__":
 
     parser = PDFParser()

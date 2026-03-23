@@ -1,3 +1,24 @@
-arxiv
-pypdf
+# API
+fastapi
+uvicorn[standard]
+pydantic
+
+# LLM
+langchain
+langchain-openai
+openai
+
+# Embeddings & Reranking
 sentence-transformers
+
+# Vector Store
+faiss-cpu
+
+# Data Pipeline
+arxiv
+requests
+pypdf
+numpy
+
+# ML backend (required by sentence-transformers)
+torch

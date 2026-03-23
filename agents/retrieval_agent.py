@@ -86,16 +86,14 @@ if __name__ == "__main__":
     from agents.retrieval_agent import RetrievalAgent
     from scripts.ingest_papers import IngestPapers
 
-    # Create one VectorDB instance
     vector_db = VectorDB()
     embedding_model = EmbeddingModel()
 
-    # Pass the same DB into ingestor
+
     ingestor = IngestPapers(vector_db=vector_db, embedding_model=embedding_model)
     topics = ["transformers", "diffusion models", "reinforcement learning"]
     ingestor.ingest_topics(topics)
 
-    # Now retrieval agent uses the same DB
     agent = RetrievalAgent(vector_db, embedding_model)
 
     query = "Recent advances in diffusion models"

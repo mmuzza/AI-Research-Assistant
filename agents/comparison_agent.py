@@ -31,6 +31,7 @@ class ComparisonAgent:
         return response.content
 
 
+# Testing
 if __name__ == "__main__":
     from langchain_openai import ChatOpenAI
 
@@ -38,7 +39,7 @@ if __name__ == "__main__":
 
     agent = ComparisonAgent(llm)
 
-    # Made up data below for testing:
+    # Made up data...
     paper_summaries = [
         {
             "title": "Diffusion Models for Reasoning",

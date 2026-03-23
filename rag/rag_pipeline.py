@@ -3,15 +3,15 @@
 # -------------
 
 # User query
-# ↓
+# NEXT
 # embed query
-# ↓
+# NEXT
 # search vector DB
-# ↓
+# NEXT
 # retrieve relevant chunks
-# ↓
+# NEXT
 # send to LLM
-# ↓
+# NEXT
 # generate answer
 # '''
 
